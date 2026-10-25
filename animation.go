@@ -171,8 +171,21 @@ func (t EffectTransition) Apply[S EffectTarget[S], I gpui.IntoElementID](element
 			v := lerp32(effect.from, effect.to, delta)
 			switch effect.kind {
 			case effectSlideY:
+				// A slide animates the insets, and insets apply only to
+				// positioned boxes: under the pin's Relative default they
+				// were offsets by construction, but browser-core 76
+				// flipped the default position to static (insets ignored,
+				// css-position-3), so the slide pins Relative itself —
+				// only when the element's own refinement states no
+				// position (an absolute or fixed target keeps its own).
+				if !el.StyleBase().Style().Position.IsSome() {
+					el = el.StyleBase().Relative()
+				}
 				el = el.StyleBase().Top(gpui.Px(v))
 			case effectSlideX:
+				if !el.StyleBase().Style().Position.IsSome() {
+					el = el.StyleBase().Relative()
+				}
 				el = el.StyleBase().Left(gpui.Px(v))
 			case effectFade:
 				el = el.StyleBase().Opacity(v)

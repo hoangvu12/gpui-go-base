@@ -134,7 +134,7 @@ func (t *AlertDialogTrigger) RenderOnce(*gpui.Window, *gpui.App) gpui.AnyElement
 // dispatch path.
 func alertDispatchElement(id string, action gpui.BoxedAction, style gpui.StyleRefinement, children []gpui.AnyElement, w *gpui.Window, app *gpui.App) gpui.AnyElement {
 	anchor := overlayKeyedFocusHandle(gpui.NameElementID(id), w, app)
-	d := gpui.Div().Block().
+	d := gpui.Div().Relative().Block().
 		ID(id).
 		Child(gpui.Div().Block().Absolute().Size0().TrackFocus(anchor)).
 		OnClick(func(_ *gpui.ClickEvent, w *gpui.Window, app *gpui.App) {

@@ -83,7 +83,10 @@ type Popup struct {
 // recipe).
 func NewPopup[I gpui.IntoElementID](id I, trigger any) *Popup {
 	eid := gpui.ElementIDOf(id)
-	base := gpui.Div().Block().ID(eid)
+	// Relative: the popup base is the containing block of its absolute
+	// measure canvas (the anchor-bounds recorder) — the pin's default
+	// before browser-core 76 flipped the default position to static.
+	base := gpui.Div().Relative().Block().ID(eid)
 	p := &Popup{
 		id:      eid,
 		base:    base,

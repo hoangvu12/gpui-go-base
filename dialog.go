@@ -721,7 +721,7 @@ func (c *DialogClose) RenderOnce(w *gpui.Window, app *gpui.App) gpui.AnyElement 
 	anchor := overlayKeyedFocusHandle(gpui.NameElementID("dialog-close-anchor"), w, app)
 	c.anchor.handle = &anchor
 	cell := c.anchor
-	d := gpui.Div().Block().
+	d := gpui.Div().Relative().Block().
 		ID("dialog-close").
 		// A zero-size, out-of-flow node that tracks the anchor: it is
 		// never hovered, so it takes no focus on its own and does not
