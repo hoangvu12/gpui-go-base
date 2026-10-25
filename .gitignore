@@ -1,0 +1,6 @@
+# OS cruft
+Thumbs.db
+Desktop.ini
+
+# Build outputs
+*.exe

@@ -1,0 +1,15 @@
+gpui-go-base
+Copyright (c) 2026 hoangvu12
+
+gpui-go-base is a Go port of GPUI Base, the crates/base crate of
+gpui-component (https://github.com/gpui-ce/gpui-component, commit
+c08206932417f863062d2ab70cc2854c6ca04238), Copyright 2024 - 2026 Longbridge
+<https://longbridge.com>, licensed under the Apache License, Version 2.0.
+
+gpui-go-base depends on gpui-go (https://github.com/hoangvu12/gpui-go), a Go
+port of GPUI-CE (https://github.com/gpui-ce/gpui-ce), Copyright 2022 - 2025
+Zed Industries, Inc., licensed under the Apache License, Version 2.0. gpui-go
+embeds a native library built from GPUI-CE and other third-party crates; their
+licenses and notices are listed in gpui-go's THIRD_PARTY_NOTICES.md. The Go
+modules this repository depends on directly are listed in its own
+THIRD_PARTY_NOTICES.md.
