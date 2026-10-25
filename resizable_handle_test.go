@@ -59,11 +59,14 @@ type huggingHarness struct {
 
 func (h *huggingHarness) Render(*gpui.Window, *gpui.Context[huggingHarness]) gpui.AnyElement {
 	axis, probe := h.axis, h.probe
+	// Relative: the neighbour hosts the deferred ABSOLUTE popover (the
+	// pin's direct-parent rule for it — the position codemod's rule,
+	// hand-applied because the popover is a variable here).
 	neighbour := func() *gpui.DivElement {
 		if axis == gpui.AxisHorizontal {
-			return gpui.Div().Flex().W(gpui.Px(100)).HFull()
+			return gpui.Div().Flex().Relative().W(gpui.Px(100)).HFull()
 		}
-		return gpui.Div().Flex().H(gpui.Px(100)).WFull()
+		return gpui.Div().Flex().Relative().H(gpui.Px(100)).WFull()
 	}
 	popover := gpui.Div().Flex().Absolute()
 	if axis == gpui.AxisHorizontal {

@@ -138,7 +138,11 @@ func (g *ResizablePanelGroup) RenderOnce(w *gpui.Window, app *gpui.App) gpui.Any
 		}
 	})
 
-	d := container.ID(g.id).SizeFull()
+	// Relative: the group container hosts the absolute OnPrepaint
+	// measure canvas (ElementExt.OnPrepaint, element_ext.go) — the
+	// pin's default before browser-core 76 flipped the default
+	// position to static.
+	d := container.ID(g.id).Relative().SizeFull()
 	// The group only distributes space along its own axis, so a caller
 	// supplied size can only mean the cross axis.
 	if g.size != nil {

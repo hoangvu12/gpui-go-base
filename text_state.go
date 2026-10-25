@@ -767,7 +767,11 @@ func (s *TextViewState) Render(w *gpui.Window, cx *gpui.Context[TextViewState]) 
 	}
 	nodeCx.installTextLeafFrames(streamFade, s.rangeHighlights, reveal)
 
-	content := VFlex().WFull()
+	// Relative: the content hosts the selection adapter's absolute
+	// OnPrepaint measure canvas (ElementExt.OnPrepaint, element_ext.go) — the
+	// pin's default before browser-core 76 flipped the default
+	// position to static.
+	content := VFlex().Relative().WFull()
 	if s.maxLines == nil {
 		content = content.HFull()
 	}

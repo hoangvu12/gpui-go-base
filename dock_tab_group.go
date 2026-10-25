@@ -798,8 +798,12 @@ func tabGroupContentFrame(r TabGroupRenderer, group *TabGroupContext, w *gpui.Wi
 	if f, ok := r.(TabGroupContentFrameRenderer); ok {
 		return f.ContentFrame(group, w, app)
 	}
-	// Gap 2b: the plain upstream div() is a block.
-	return gpui.Div().ID("tab-group-content").Block()
+	// Gap 2b: the plain upstream div() is a block. Relative: the
+	// content frame is the containing block of the drop indicator the
+	// tab group attaches (absolute-positioned; the gallery and showcase
+	// skins state it themselves) — the pin's default before
+	// browser-core 76 flipped the default position to static.
+	return gpui.Div().ID("tab-group-content").Relative().Block()
 }
 
 func tabGroupRenderActivePanel(r TabGroupRenderer, panel gpui.View, group *TabGroupContext, w *gpui.Window, app *gpui.App) gpui.AnyElement {

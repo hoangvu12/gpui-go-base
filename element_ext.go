@@ -39,8 +39,21 @@ func ElementExtOf[S any](element S) ElementExt[S] {
 
 // OnPrepaint invokes callback during prepaint with this element's
 // resolved bounds (U:element_ext.rs:15-28): an absolutely positioned,
-// full-size canvas child observes the bounds and paints nothing.
+// full-size canvas child observes the bounds and paints nothing. The
+// canvas resolves against the nearest positioned ancestor, so the host
+// is pinned relative when its refinement states no position of its
+// own — the pin's default before browser-core 76 flipped the default
+// position to static (the canvas would escape to an outer positioned
+// ancestor and measure ITS bounds instead); a host that states a
+// position (absolute, fixed, ...) keeps it.
 func (e ElementExt[S]) OnPrepaint(callback func(bounds gpui.Bounds, w *gpui.Window, app *gpui.App)) S {
+	if host, ok := any(e.element).(interface {
+		StyleBase() *gpui.Styled[S]
+	}); ok {
+		if !host.StyleBase().Style().Position.IsSome() {
+			host.StyleBase().Relative()
+		}
+	}
 	canvas := gpui.Canvas(
 		func(bounds gpui.Bounds, w *gpui.Window, app *gpui.App) struct{} {
 			callback(bounds, w, app)

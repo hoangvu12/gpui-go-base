@@ -464,7 +464,11 @@ type SliderTrack struct {
 // NewSliderTrack creates a horizontal track over state
 // (U:slider.rs:532-540).
 func NewSliderTrack(state gpui.Entity[SliderState]) *SliderTrack {
-	base := gpui.Div().Block()
+	// Relative: the track is the containing block of the rail,
+	// indicator and thumbs its callers attach (absolute-positioned, as
+	// in the gallery's slider page) — the pin's default before
+	// browser-core 76 flipped the default position to static.
+	base := gpui.Div().Relative().Block()
 	t := gpui.BindStyledTo(&SliderTrack{state: state, axis: gpui.AxisHorizontal, base: base}, base.StyleMut())
 	return gpui.BindInteractive(gpui.BindParent(t), base)
 }
@@ -543,7 +547,11 @@ type SliderIndicator struct {
 // NewSliderIndicator creates an indicator over state
 // (U:slider.rs:645-651).
 func NewSliderIndicator(state gpui.Entity[SliderState]) *SliderIndicator {
-	base := gpui.Div().Block()
+	// Relative: the indicator's bar hosts the absolute OnPrepaint
+	// measure canvas (ElementExt.OnPrepaint, element_ext.go) — the
+	// pin's default before browser-core 76 flipped the default
+	// position to static.
+	base := gpui.Div().Relative().Block()
 	i := gpui.BindStyledTo(&SliderIndicator{state: state, base: base}, base.StyleMut())
 	return gpui.BindInteractive(gpui.BindParent(i), base)
 }
