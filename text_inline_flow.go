@@ -285,7 +285,7 @@ func (f *inlineFlow) RequestLayout(global *gpui.GlobalElementID, _ *gpui.Inspect
 	state := inlineFlowLayoutState{typography: typography, frameState: frameState, current: &current}
 	currentSlot := state.current
 
-	id, err := gpui.RequestElementMeasuredLayout(w, gpui.DefaultStyle(), func(req gpui.MeasureRequest) gpui.Size {
+	id, err := gpui.RequestElementMeasuredLayout(w, gpui.DefaultStyle(), func(req gpui.MeasureRequest) gpui.MeasuredSize {
 		var wrapWidth *float32
 		if typography.textStyle.WhiteSpace.WrapsAtWidth() {
 			if req.KnownWidthPresent {
@@ -298,7 +298,7 @@ func (f *inlineFlow) RequestLayout(global *gpui.GlobalElementID, _ *gpui.Inspect
 		}
 		if l := frameState.layoutAt(wrapWidth); l != nil {
 			*currentSlot = l
-			return l.size
+			return gpui.MeasuredSize{Size: l.size}
 		}
 		key := frameState.key
 		refinement := textStyleSubtractDefault(typography.textStyle)
@@ -309,7 +309,7 @@ func (f *inlineFlow) RequestLayout(global *gpui.GlobalElementID, _ *gpui.Inspect
 		})
 		*currentSlot = layout
 		frameState.pushLayout(layout)
-		return layout.size
+		return gpui.MeasuredSize{Size: layout.size}
 	})
 	if err != nil {
 		panic(fmt.Sprintf("base: InlineFlow request_layout: %v", err))
