@@ -56,19 +56,6 @@ Before any publish, remove the replace and require a tagged gpui-go version
 instead (`go mod tidy`). Build with `CGO_ENABLED=0` like gpui-go; the native
 DLL comes embedded inside the gpui-go module.
 
-## Test applications (NEVER pushed)
-
-`examples/zterm` and `examples/base-gallery` are local test applications for
-Base and the core — they are development fixtures, not products, and they
-must never be pushed to a public remote or published. `examples/base-showcase`
-is the upstream showcase counterpart and small enough to keep, with the same
-rule. They render offscreen captures for review:
-
-```sh
-ZTERM_CAPTURE_DIR=/tmp/zterm go test ./examples/zterm -run TestCapture -count=1
-GALLERY_CAPTURE_DIR=/tmp/gallery go test ./examples/base-gallery -run TestCapturePages -count=1
-```
-
 ## License
 
 gpui-go-base is licensed under the [Apache License 2.0](LICENSE), the same

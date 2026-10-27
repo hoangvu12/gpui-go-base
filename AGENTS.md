@@ -7,11 +7,9 @@ spec stay in the gpui-go repository.
 
 ## Ground rules
 
-- zterm (`examples/zterm`) and the gallery (`examples/base-gallery`) are LOCAL
-  TEST APPS. They are never pushed to any remote and never published. Do not
-  add remotes, tags or pushes without the user's explicit go-ahead; the same
-  approval gate applies to creating any public GitHub repository for
-  gpui-go-base.
+- The test apps (zterm, the gallery, the showcase) live only in the local
+  development checkout and are never pushed. Do not add remotes, tags or
+  pushes without the user's explicit go-ahead.
 - The module builds against a local gpui-go checkout through the go.mod
   `replace` (`../gpui-go-wt-base`, LOCAL-ONLY; see go.mod's comment). Before
   any publish, drop the replace and require a tagged gpui-go version.
@@ -27,7 +25,6 @@ spec stay in the gpui-go repository.
   path `github.com/hoangvu12/gpui-go-base`).
 - Subpackages: `rope`, `sumtree`, `segment`, `dataurl`, `strftime`;
   `testdata` holds upstream fixtures.
-- `examples/`: zterm, base-gallery, base-showcase (test apps; see above).
 - `conformance/cmd/basecoverage`: the coverage ledger generator;
   `go run ./conformance/cmd/basecoverage -check` must stay current. It scans
   this repository plus the gpui-go checkout's `gpui/` tests (resolved from
