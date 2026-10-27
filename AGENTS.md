@@ -10,9 +10,8 @@ spec stay in the gpui-go repository.
 - The test apps (zterm, the gallery, the showcase) live only in the local
   development checkout and are never pushed. Do not add remotes, tags or
   pushes without the user's explicit go-ahead.
-- The module builds against a local gpui-go checkout through the go.mod
-  `replace` (`../gpui-go-wt-base`, LOCAL-ONLY; see go.mod's comment). Before
-  any publish, drop the replace and require a tagged gpui-go version.
+- go.mod requires a tagged gpui-go release. A local `replace` to a gpui-go
+  checkout is fine while developing, but never commit it.
 - Windows AMD64 is the only target (as gpui-go).
 - Headless testing only: never set GPUI_TEST_ONSCREEN=1 or
   GPUI_REAL_INPUT_TESTS=1, and never drive real input. The pre-existing

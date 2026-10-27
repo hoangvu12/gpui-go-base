@@ -36,25 +36,19 @@ citations in the Go tests (it also follows the tests that moved into the
 gpui-go core, through the local replace target). Its `-check` flag fails when
 the ledger is stale or reports a gap.
 
-## Building against the local gpui-go
+## Building
 
-Until gpui-go publishes a tagged release with the post-split core, go.mod
-carries a LOCAL-ONLY replace pointing at a sibling checkout:
-
-```
-replace github.com/hoangvu12/gpui-go => ../gpui-go-wt-base
-```
-
-Clone gpui-go next to this repository (or edit the path), then:
+go.mod requires a tagged gpui-go release (v0.3.0 or later):
 
 ```sh
 go build ./...
 go test ./...
 ```
 
-Before any publish, remove the replace and require a tagged gpui-go version
-instead (`go mod tidy`). Build with `CGO_ENABLED=0` like gpui-go; the native
-DLL comes embedded inside the gpui-go module.
+Build with `CGO_ENABLED=0` like gpui-go; the native DLL comes embedded
+inside the gpui-go module. To develop against a local gpui-go checkout, add
+a `replace github.com/hoangvu12/gpui-go => ../gpui-go` line to go.mod (do
+not commit it).
 
 ## License
 
